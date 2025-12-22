@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import LoginPage from "./pages/LoginPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Toaster } from "sonner";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>
+      <Toaster position="top-right" richColors closeButton />
     </>
   );
 }
