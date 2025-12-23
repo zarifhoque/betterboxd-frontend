@@ -28,8 +28,8 @@ export const LoginForm = () => {
         description: "You have successfully logged in.",
       });
 
-      // navigate("/", { replace: true });
-      navigate("/");
+      navigate("/home", { replace: true });
+      // navigate("/home");
     } catch (err: any) {
       const rawMessage =
         err instanceof Error ? err.message : "An unexpected error occurred";
