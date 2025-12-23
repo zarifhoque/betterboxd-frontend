@@ -3,9 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { handleLogin } from "@/api/Login";
 import { toast } from "sonner";
-
-// Import your 3 new sub-components
-// Adjust the paths based on where you saved them
 import { LoginFormHeader } from "./LoginFormHeader";
 import { LoginFormContent } from "./LoginFormContent";
 import { LoginFormFooter } from "./LoginFormFooter";
@@ -21,7 +18,7 @@ export const LoginForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    setIsLoading(true); // Start spinner
+    setIsLoading(true); 
 
     try {
       await handleLogin({ email, password });
