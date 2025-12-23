@@ -1,4 +1,4 @@
-import type { LoginResponse } from "@/types/User";
+import type { LoginResponse } from "@/types/Auth";
 
 export const getUser = async (): Promise<LoginResponse["user"]> => {
   const token = localStorage.getItem("token");

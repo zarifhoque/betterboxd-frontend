@@ -1,4 +1,4 @@
-import type { LoginData, LoginResponse } from "@/types/User";
+import type { LoginData, LoginResponse } from "@/types/Auth";
 
 export const loginUser = async (data: LoginData): Promise<LoginResponse> => {
   const res = await fetch("http://localhost:3000/api/v1/auth/login", {

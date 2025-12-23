@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getUser } from "@/api/UserAPI";
 import { loginUser } from "@/api/AuthAPI";
-import type { User } from "@/types/User";
+import type { User } from "@/types/Auth";
 import type { ReactNode } from "react";
 import { AuthContext } from "./AuthContext";
 
