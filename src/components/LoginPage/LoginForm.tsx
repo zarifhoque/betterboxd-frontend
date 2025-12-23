@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, replace, useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/card";
 import { Loader2, ArrowRight, Film, Eye, EyeOff } from "lucide-react";
 import { handleLogin } from "@/api/Login";
+import { toast } from "sonner";
 
 export const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -24,8 +25,29 @@ export const LoginForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await handleLogin({ email, password });
-    navigate("/", { replace: true });
+    setError("");
+    try {
+      await handleLogin({ email, password });
+      toast.success("Welcome back!", {
+        description: "You have successfully logged in.",
+      });
+      navigate("/", { replace: true });
+    } catch (err: any) {
+      const rawMessage =
+        err instanceof Error ? err.message : "An unexpected error occurred";
+      let displayMessage = rawMessage;
+      if (rawMessage.includes("email:")) {
+        displayMessage = rawMessage.split("email:")[1].split(",")[0].trim();
+      }
+      if (rawMessage.includes("password:")) {
+        displayMessage = rawMessage.split("password:")[1].split(",")[0].trim();
+      }
+
+      setError(displayMessage);
+      toast.error("Login failed", { description: displayMessage });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -38,7 +60,7 @@ export const LoginForm = () => {
         <CardDescription>Enter your credentials to continue</CardDescription>
       </CardHeader>
 
-      <form onSubmit={handleSubmit}>
+      <form noValidate onSubmit={handleSubmit}>
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
@@ -85,7 +107,14 @@ export const LoginForm = () => {
             </div>
           </div>
 
-          {error && <p className="text-sm text-destructive">{error}</p>}
+          <div className="h-5">
+            {" "}
+            {error && (
+              <p className="text-sm text-destructive animate-in fade-in slide-in-from-top-1 duration-200">
+                {error}
+              </p>
+            )}
+          </div>
         </CardContent>
 
         <CardFooter className="flex flex-col gap-4">
