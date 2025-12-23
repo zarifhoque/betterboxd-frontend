@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
-import { handleLogin } from "@/api/Login";
+import { handleLogin } from "@/api/AuthAPI";
 import { toast } from "sonner";
 import { LoginFormHeader } from "./LoginFormHeader";
 import { LoginFormContent } from "./LoginFormContent";
 import { LoginFormFooter } from "./LoginFormFooter";
+import { useAuth } from "@/contexts/auth/useAuth";
 
 export const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -14,20 +15,21 @@ export const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    setIsLoading(true); 
+    setIsLoading(true);
 
     try {
-      await handleLogin({ email, password });
-
+      await login(email, password);
       toast.success("Welcome back!", {
         description: "You have successfully logged in.",
       });
 
-      navigate("/", { replace: true });
+      // navigate("/", { replace: true });
+      navigate("/");
     } catch (err: any) {
       const rawMessage =
         err instanceof Error ? err.message : "An unexpected error occurred";

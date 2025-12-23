@@ -1,10 +1,6 @@
-import { useNavigate } from "react-router-dom";
-import { toast } from "sonner";
+import type { LoginData, LoginResponse } from "@/types/User";
 
-export const handleLogin = async (data: {
-  email: string;
-  password: string;
-}) => {
+export const loginUser = async (data: LoginData): Promise<LoginResponse> => {
   const res = await fetch("http://localhost:3000/api/v1/auth/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -15,7 +11,7 @@ export const handleLogin = async (data: {
     const errData = await res.json();
     throw new Error(errData.message || "Login failed");
   }
+
   const json = await res.json();
-  localStorage.setItem("token", json.data.token);
-  return json;
+  return json.data;
 };
