@@ -11,8 +11,8 @@ export const Header = () => {
   const { isAuthenticated } = useAuth();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/50 glass-effect">
-      <div className="container flex h-16 items-center gap-4 ">
+    <header className="sticky top-0 z-50 w-full border-b border-border/50 glass-effect ">
+      <div className="container flex h-8 items-center gap-4 ">
         <BrandLogo />
         <HeaderSearchbar />
 

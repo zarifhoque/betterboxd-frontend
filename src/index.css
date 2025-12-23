@@ -57,19 +57,19 @@
   --font-display: "Playfair Display", serif;
 }
 
-
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    html, body, #root {
+  html,
+  body,
+  #root {
+    height: 100%;
     width: 100%;
-    min-height: 100vh;
     margin: 0;
     padding: 0;
   }
-    @apply bg-background text-foreground font-[Inter];
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    min-height: 100vh;
   }
 }
 
