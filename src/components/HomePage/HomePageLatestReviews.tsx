@@ -2,7 +2,7 @@ import { Film } from "lucide-react";
 import { ReviewCard } from "./ReviewCard";
 
 const LatestReviewsSection = () => {
-  const [page, setPage] = useState(1);
+//   const [page, setPage] = useState(1);
   const itemsPerPage = 5;
 
   const { data, isLoading } = useQuery<StoriesResponse>({
