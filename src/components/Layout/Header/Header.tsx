@@ -12,7 +12,7 @@ export const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/50 glass-effect ">
-      <div className="container flex h-8 items-center gap-4 ">
+      <div className="flex h-12 items-center justify-center gap-4 ">
         <BrandLogo />
         <HeaderSearchbar />
 

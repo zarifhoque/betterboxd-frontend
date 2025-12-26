@@ -5,7 +5,7 @@ import { BrandLogo } from "../../common/BrandLogo";
 export const Footer = () => {
   return (
     <footer className="border-t border-border/50 bg-secondary/30">
-      <div className="container py-12">
+      <div className="p-4 py-12">
         <div className="grid gap-8 md:grid-cols-4">
           <div className="md:col-span-2">
             <BrandLogo />
