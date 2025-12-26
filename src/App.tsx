@@ -6,20 +6,23 @@ import LoginPage from "./pages/LoginPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster } from "sonner";
 import { AuthProvider } from "./contexts/auth/AuthProvider";
+import { ThemeProvider } from "./contexts/theme/ThemeProvider";
 
 function App() {
   return (
     <>
-      <AuthProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/login" element={<LoginPage />} />
-          </Routes>
-        </BrowserRouter>
-        <Toaster position="top-right" richColors closeButton />
-      </AuthProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/home" element={<HomePage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/login" element={<LoginPage />} />
+            </Routes>
+          </BrowserRouter>
+          <Toaster position="top-right" richColors closeButton />
+        </AuthProvider>
+      </ThemeProvider>
     </>
   );
 }
