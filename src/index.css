@@ -4,8 +4,6 @@
 
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
-
 @layer theme {
   .dark {
     --color-background: hsl(220 20% 8%);
@@ -65,18 +63,16 @@
     min-height: 100vh;
   }
 }
-
+/* 
 @layer components {
   .subtle-pattern {
-    .subtle-pattern {
-      background-image: radial-gradient(
-        hsl(var(--muted-foreground) / 0.05) 1px,
-        transparent 1px
-      );
-      background-size: 24px 24px;
-    }
+    background-image: radial-gradient(
+      hsl(var(--muted-foreground) / 0.05) 1px,
+      transparent 1px
+    );
+    background-size: 24px 24px;
   }
-}
+} */
 
 @layer utilities {
   @keyframes fade-in {

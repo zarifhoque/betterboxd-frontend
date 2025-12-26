@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { LoginFormHeader } from "./LoginFormHeader";
 import { LoginFormContent } from "./LoginFormContent";
 import { LoginFormFooter } from "./LoginFormFooter";
-import { useAuth } from "@/contexts/auth/useAuth";
+import { useAuth } from "@/contexts/auth/UseAuth";
 
 export const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -49,7 +49,7 @@ export const LoginForm = () => {
   };
 
   return (
-    <Card className="w-full max-w-md border-border/50 shadow-soft animate-fade-in">
+    <Card className="w-full max-w-md border-border/50 shadow-soft animate-fade-in ">
       <LoginFormHeader />
 
       <form noValidate onSubmit={handleSubmit}>
