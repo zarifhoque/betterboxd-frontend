@@ -9,6 +9,12 @@
     --color-background: hsl(220 20% 8%);
     --color-foreground: hsl(45 20% 95%);
 
+    --gradient-primary: linear-gradient(
+      135deg,
+      hsl(24 85% 55%) 0%,
+      hsl(35 90% 60%) 100%
+    );
+
     --color-card: hsl(220 18% 12%);
     --color-card-foreground: hsl(45 20% 95%);
 
@@ -26,12 +32,21 @@
 
     --shadow-soft: 0 4px 20px -4px hsl(0 0% 0% / 0.4);
     --shadow-glow: 0 8px 40px -8px hsl(24 85% 55% / 0.3);
+
+    --accent: 24 70% 95%;
+    --accent-foreground: 24 80% 35%;
   }
 }
 
 @theme {
   --color-background: hsl(45 30% 98%);
   --color-foreground: hsl(220 20% 10%);
+
+  --gradient-primary: linear-gradient(
+    135deg,
+    hsl(24 80% 50%) 0%,
+    hsl(35 90% 55%) 100%
+  );
 
   --color-card: hsl(0 0% 100%);
   --color-card-foreground: hsl(220 20% 10%);
@@ -55,6 +70,9 @@
 
   --font-sans: "Inter", sans-serif;
   --font-display: "Playfair Display", serif;
+
+  --accent: 24 60% 20%;
+  --accent-foreground: 24 85% 65%;
 }
 
 @layer base {
@@ -63,16 +81,16 @@
     min-height: 100vh;
   }
 }
-/* 
+
 @layer components {
-  .subtle-pattern {
-    background-image: radial-gradient(
-      hsl(var(--muted-foreground) / 0.05) 1px,
-      transparent 1px
-    );
-    background-size: 24px 24px;
+  .gradient-text {
+    background-image: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
   }
-} */
+}
 
 @layer utilities {
   @keyframes fade-in {
@@ -86,6 +104,39 @@
     }
   }
 
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  @keyframes blink {
+    0%,
+    49% {
+      border-right-color: var(--color-primary);
+    }
+    50%,
+    100% {
+      border-right-color: transparent;
+    }
+  }
+
+  .typing-text {
+    overflow: hidden;
+    display: inline-block;
+    border-right: 3px solid var(--color-primary);
+    white-space: nowrap;
+    animation: typing 5s steps(60, end) 0.5s 1 forwards, blink 1s infinite 4.5s;
+  }
+
+  .typing-text.typing-complete {
+    border-right-color: transparent;
+    animation: typing 5s steps(60, end) 0.5s 1 forwards;
+  }
+
   .animate-fade-in {
     animation: fade-in 0.5s ease-out forwards;
   }
@@ -94,5 +145,162 @@
     .animate-fade-in {
       animation: none;
     }
+  }
+}
+
+@layer components {
+  .bokeh-container {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .bokeh {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.4;
+    mix-blend-mode: normal; /* gives glow effect */
+  }
+}
+
+@layer utilities {
+  @keyframes float1 {
+    0%,
+    100% {
+      transform: translate(0, 0);
+    }
+    25% {
+      transform: translate(20px, -20px);
+    }
+    50% {
+      transform: translate(-15px, 30px);
+    }
+    75% {
+      transform: translate(30px, 15px);
+    }
+  }
+
+  @keyframes float2 {
+    0%,
+    100% {
+      transform: translate(0, 0);
+    }
+    25% {
+      transform: translate(-25px, 20px);
+    }
+    50% {
+      transform: translate(20px, -15px);
+    }
+    75% {
+      transform: translate(-20px, -25px);
+    }
+  }
+
+  @keyframes float3 {
+    0%,
+    100% {
+      transform: translate(0, 0);
+    }
+    25% {
+      transform: translate(35px, 15px);
+    }
+    50% {
+      transform: translate(-20px, -20px);
+    }
+    75% {
+      transform: translate(15px, 30px);
+    }
+  }
+
+  .bokeh1 {
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, var(--color-primary), transparent);
+    top: 15%;
+    left: 5%;
+    animation: float1 12s ease-in-out infinite;
+  }
+
+  .bokeh2 {
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, var(--color-primary), transparent);
+    top: 5%;
+    right: 15%;
+    animation: float2 16s ease-in-out infinite;
+  }
+
+  .bokeh3 {
+    width: 130px;
+    height: 130px;
+    background: radial-gradient(circle, var(--color-primary), transparent);
+    bottom: 20%;
+    left: 100%;
+    animation: float3 14s ease-in-out infinite;
+  }
+
+  .bokeh4 {
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, var(--color-primary), transparent);
+    top: 5%;
+    right: 70%;
+    animation: float1 18s ease-in-out infinite reverse;
+  }
+
+  .bokeh5 {
+    width: 135px;
+    height: 135px;
+    background: radial-gradient(circle, var(--color-primary), transparent);
+    top: 45%;
+    right: 60%;
+    animation: float2 20s ease-in-out infinite reverse;
+  }
+
+  .bokeh6 {
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, var(--color-primary), transparent);
+    top: 65%;
+    right: 15%;
+    animation: float3 22s ease-in-out infinite reverse;
+  }
+
+  .bokeh7 {
+    width: 125px;
+    height: 125px;
+    background: radial-gradient(circle, var(--color-primary), transparent);
+    top: 55%;
+    right: 45%;
+    animation: float1 22s ease-in-out infinite reverse;
+  }
+
+  .bokeh8 {
+    width: 110px;
+    height: 110px;
+    background: radial-gradient(circle, var(--color-primary), transparent);
+    top: 70%;
+    left: 20%;
+    animation: float2 22s ease-in-out infinite reverse;
+  }
+
+  .bokeh9 {
+    width: 115px;
+    height: 115px;
+    background: radial-gradient(circle, var(--color-primary), transparent);
+    top: 70%;
+    left: 60%;
+    animation: float3 22s ease-in-out infinite reverse;
+  }
+
+  .bokeh10 {
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, var(--color-primary), transparent);
+    top: 10%;
+    right: 35%;
+    animation: float1 22s ease-in-out infinite reverse;
   }
 }
