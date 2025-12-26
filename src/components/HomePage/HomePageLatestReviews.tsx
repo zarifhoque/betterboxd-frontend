@@ -1,4 +1,5 @@
 import { Film } from "lucide-react";
+import { ReviewCard } from "./ReviewCard";
 
 const LatestReviewsSection = () => {
   const [page, setPage] = useState(1);
@@ -33,7 +34,7 @@ const LatestReviewsSection = () => {
       {isLoading && (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {Array.from({ length: itemsPerPage }).map((_, i) => (
-            <ReviewCardSkeleton key={i} />
+            <ReviewCard key={i} />
           ))}
         </div>
       )}
@@ -55,11 +56,11 @@ const LatestReviewsSection = () => {
             ))}
           </div>
 
-          <Pagination
+          {/* <Pagination
             currentPage={page}
             totalPages={data.totalPages}
             onPageChange={setPage}
-          />
+          /> */}
         </>
       )}
     </section>

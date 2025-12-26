@@ -236,8 +236,8 @@
     width: 130px;
     height: 130px;
     background: radial-gradient(circle, var(--color-primary), transparent);
-    bottom: 20%;
-    left: 100%;
+    bottom: 30%;
+    left: 90%;
     animation: float3 14s ease-in-out infinite;
   }
 
