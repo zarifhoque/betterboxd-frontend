@@ -12,3 +12,20 @@ export interface LoginResponse {
     role: string;
   };
 }
+
+export interface SignupData {
+  username: string;
+  name: string;
+  email: string;
+  password: string;
+}
+
+export interface SignupResponse {
+  userId: string;
+  username: string;
+  name: string;
+  email: string;
+  bio: string | null;
+  joinDate: string;
+  role: "USER" | "ADMIN";
+}

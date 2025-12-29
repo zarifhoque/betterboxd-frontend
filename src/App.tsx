@@ -9,6 +9,7 @@ import { ThemeProvider } from "./contexts/theme/ThemeProvider";
 import RegisterPage from "./pages/RegisterPage";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient";
+import ConfirmEmailPage from "./pages/ConfirmEmailPage";
 
 function App() {
   return (
@@ -22,6 +23,10 @@ function App() {
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
+                <Route
+                  path="/confirm-email/:token"
+                  element={<ConfirmEmailPage />}
+                />
               </Routes>
             </BrowserRouter>
             <Toaster position="top-right" richColors closeButton />
