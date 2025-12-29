@@ -36,3 +36,17 @@ export const signupUser = async (data: SignupData): Promise<SignupResponse> => {
   const json = await res.json();
   return json.data;
 };
+
+export const confirmEmailApi = async (token: string): Promise<void> => {
+  const res = await fetch(
+    `http://localhost:3000/api/v1/auth/confirm-email/${token}`,
+    {
+      method: "GET",
+    }
+  );
+
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.message || "Confirmation failed");
+  }
+};
