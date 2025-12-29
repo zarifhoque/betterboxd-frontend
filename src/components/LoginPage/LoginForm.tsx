@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
-import { handleLogin } from "@/api/AuthAPI";
 import { toast } from "sonner";
 import { LoginFormHeader } from "./LoginFormHeader";
 import { LoginFormContent } from "./LoginFormContent";

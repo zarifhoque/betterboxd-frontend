@@ -159,9 +159,9 @@
   .bokeh {
     position: absolute;
     border-radius: 50%;
-    filter: blur(60px);
+    filter: blur(75px);
     opacity: 0.4;
-    mix-blend-mode: normal; /* gives glow effect */
+    mix-blend-mode: normal; 
   }
 }
 

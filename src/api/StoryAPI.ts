@@ -1,33 +1,30 @@
-import type { StoryResponse } from "@/types/Story";
+import type { StoriesResponse } from "@/types/Story";
 
 export const getTopStories = async (
-  title: string,
-  page = 1,
-  itemsPerPage = 5
-): Promise<StoryResponse[]> => {
-  const token = localStorage.getItem("token");
-  if (!token) throw new Error("No token found");
-  //   console.log(
-  //     `http://localhost:3000/api/v1/stories?title=${encodeURIComponent(
-  //       title
-  //     )}&page=${page}&itemsPerPage=${itemsPerPage}`
-  //   );
-  const res = await fetch(
-    `http://localhost:3000/api/v1/stories/?title=${encodeURIComponent(title)}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    }
+  page: number,
+  itemsPerPage: number
+): Promise<StoriesResponse> => {
+  const response = await fetch(
+    `http://localhost:3000/api/v1/stories?page=${page}&itemsPerPage=${itemsPerPage}`
+  );
+  if (!response.ok) {
+    throw new Error("Failed to fetch stories");
+  }
+  const story = await response.json();
+  console.log(story);
+  return story;
+};
+
+export const getStoriesCount = async (): Promise<{
+  data: { count: number };
+}> => {
+  const response = await fetch(
+    "http://localhost:3000/api/v1/stories/meta/count"
   );
 
-  if (!res.ok) {
-    const err = await res.json();
-    throw new Error(err.message || "Failed to fetch top stories");
+  if (!response.ok) {
+    throw new Error("Failed to fetch story count");
   }
 
-  const data = await res.json();
-  return data;
+  return response.json();
 };
