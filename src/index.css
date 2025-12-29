@@ -6,6 +6,29 @@
 
 /* @custom-variant dark (&:is(.dark *)); */
 
+@theme dark {
+  --color-background: hsl(220 20% 8%);
+  --color-foreground: hsl(45 20% 95%);
+
+  --color-card: hsl(220 18% 12%);
+  --color-card-foreground: hsl(45 20% 95%);
+
+  --color-primary: hsl(24 85% 55%);
+  --color-primary-foreground: hsl(220 20% 8%);
+
+  --color-secondary: hsl(220 15% 18%);
+
+  --color-muted-foreground: hsl(220 10% 55%);
+
+  --color-destructive: hsl(0 62% 50%);
+
+  --color-border: hsl(220 15% 20%);
+  --color-ring: hsl(24 85% 55%);
+
+  --shadow-soft: 0 4px 20px -4px hsl(0 0% 0% / 0.4);
+  --shadow-glow: 0 8px 40px -8px hsl(24 85% 55% / 0.3);
+}
+
 @theme {
   --color-background: hsl(45 30% 98%);
   --color-foreground: hsl(220 20% 10%);
@@ -34,28 +57,6 @@
   --font-display: "Playfair Display", serif;
 }
 
-@theme dark {
-  --color-background: hsl(220 20% 8%);
-  --color-foreground: hsl(45 20% 95%);
-
-  --color-card: hsl(220 18% 12%);
-  --color-card-foreground: hsl(45 20% 95%);
-
-  --color-primary: hsl(24 85% 55%);
-  --color-primary-foreground: hsl(220 20% 8%);
-
-  --color-secondary: hsl(220 15% 18%);
-
-  --color-muted-foreground: hsl(220 10% 55%);
-
-  --color-destructive: hsl(0 62% 50%);
-
-  --color-border: hsl(220 15% 20%);
-  --color-ring: hsl(24 85% 55%);
-
-  --shadow-soft: 0 4px 20px -4px hsl(0 0% 0% / 0.4);
-  --shadow-glow: 0 8px 40px -8px hsl(24 85% 55% / 0.3);
-}
 
 @layer base {
   * {
@@ -63,5 +64,40 @@
   }
   body {
     @apply bg-background text-foreground font-[Inter];
+  }
+}
+
+@layer components {
+  .subtle-pattern {
+    .subtle-pattern {
+      background-image: radial-gradient(
+        hsl(var(--muted-foreground) / 0.05) 1px,
+        transparent 1px
+      );
+      background-size: 24px 24px;
+    }
+  }
+}
+
+@layer utilities {
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out forwards;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-fade-in {
+      animation: none;
+    }
   }
 }
