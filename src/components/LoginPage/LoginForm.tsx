@@ -28,7 +28,6 @@ export const LoginForm = () => {
       });
 
       navigate("/home", { replace: true });
-      // navigate("/home");
     } catch (err: any) {
       const rawMessage =
         err instanceof Error ? err.message : "An unexpected error occurred";

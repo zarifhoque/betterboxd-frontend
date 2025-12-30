@@ -50,7 +50,7 @@ export const HomePageLatestReviews = () => {
       </div>
       <div className="flex justify-end pb-1">
         <Dropdown
-          options={[3, 6, 9, 12]}
+          options={[1, 3, 6, 9, 12]}
           value={itemsPerPage}
           onChange={handleItemsPerPageChange}
         />

@@ -3,15 +3,14 @@ import { Sparkles } from "lucide-react";
 export const HomePageHero = () => {
   return (
     <section className="relative border-b border-border/50">
-      <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-background pointer-events-none" />
-      <div className="relative py-16 md:py-24 ">
+      <div className="relative py-16 md:py-24">
         <div className="hidden lg:block flex-1">
           {Array.from({ length: 10 }, (_, index) => index + 1).map((num) => (
             <div key={num} className={`bokeh bokeh${num}`}></div>
           ))}
         </div>
 
-        <div className="max-w-3xl mx-auto text-center mb-12 animate-fade-in flex-col justify-center">
+        <div className="max-w-3xl mx-auto text-center mb-12 animate-fade-in flex-col justify-center ">
           <div
             className="
               inline-flex items-center gap-2 px-4 py-1.5 rounded-full
@@ -23,7 +22,7 @@ export const HomePageHero = () => {
             Discover Cinema
           </div>
 
-          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 tracking-tight text-balance mx-auto w-fit">
+          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 tracking-tight mx-auto w-fit ">
             <span className="typing-text">
               Before You Press <span className="gradient-text">Play</span>
             </span>

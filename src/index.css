@@ -80,6 +80,13 @@
     @apply bg-background text-foreground font-sans antialiased;
     min-height: 100vh;
   }
+
+  .glass-effect {
+    background: hsla(var(--background) / 0.6);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border: 1px solid hsla(var(--border) / 0.3);
+  }
 }
 
 @layer components {
@@ -161,7 +168,15 @@
     border-radius: 50%;
     filter: blur(75px);
     opacity: 0.4;
-    mix-blend-mode: normal; 
+    mix-blend-mode: normal;
+  }
+
+  .items-per-page-select {
+    @apply border border-border rounded-md bg-secondary/30 h-10 w-20 text-foreground focus:outline-none focus:ring-2 focus:ring-primary;
+  }
+
+  .card-title {
+    @apply font-display text-xl font-semibold leading-tight line-clamp-2 text-card-foreground group-hover:text-primary transition-colors min-h-[3.5rem];
   }
 }
 

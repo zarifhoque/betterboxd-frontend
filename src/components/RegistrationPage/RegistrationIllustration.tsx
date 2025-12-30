@@ -1,4 +1,5 @@
 import { Film, CheckCircle2 } from "lucide-react";
+import { BrandLogo } from "../common/BrandLogo";
 
 const features = [
   "Write and share movie reviews",
@@ -9,12 +10,9 @@ const features = [
 export const RegistrationIllustration = () => {
   return (
     <div className="hidden lg:flex flex-1 items-center justify-center subtle-pattern border-r border-border/50 p-12">
-      <div className="max-w-md animate-fade-in">
-        <div className="flex items-center gap-3 mb-8">
-          <Film className="h-10 w-10 text-primary" />
-          <span className="font-display text-3xl font-bold">
-            Cine<span className="text-primary">Critic</span>
-          </span>
+      <div className="max-w-md animate-fade-in text-center">
+        <div className="flex justify-center mb-6">
+          <BrandLogo size="lg" linkToHome={false} hideTextOnMobile={false} />
         </div>
         <h2 className="font-display text-2xl font-semibold text-foreground mb-4">
           Join the conversation
@@ -23,14 +21,14 @@ export const RegistrationIllustration = () => {
           Create an account to share your thoughts on the latest releases,
           discover hidden gems, and connect with fellow film enthusiasts.
         </p>
-        <ul className="space-y-3">
+        <ul className="space-y-3 flex-col ">
           {features.map((feature, i) => (
             <li
               key={i}
               className="flex items-center gap-3 text-muted-foreground"
             >
               <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0" />
-              {feature}
+              <span>{feature}</span>
             </li>
           ))}
         </ul>

@@ -1,4 +1,4 @@
-interface Story {
+export interface Story {
   storyId: string;
   userId: string;
   title: string;

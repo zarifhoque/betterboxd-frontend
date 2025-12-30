@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { PaginationArrow } from "./PaginationArrow";
+import { getPaginationPages } from "@/utils/PaginationUtils";
 
 interface PaginationProps {
   currentPage: number;
@@ -14,45 +15,45 @@ export const Pagination = ({
 }: PaginationProps) => {
   if (totalPages <= 1) return null;
 
+  const pages = getPaginationPages(currentPage, totalPages);
+
   return (
     <div className="flex items-center justify-center gap-3 mt-12">
-      <Button
-        variant="outline"
-        size="sm"
-        onClick={() => onPageChange(currentPage - 1)}
-        disabled={currentPage <= 1}
-        className="gap-1 hover:bg-accent hover:border-accent transition-colors"
-      >
-        <ChevronLeft className="h-4 w-4" />
-        Previous
-      </Button>
-
+      <PaginationArrow
+        paginationDirection="left"
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={onPageChange}
+      />
       <div className="flex items-center gap-1">
-        {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
-          <Button
-            key={pageNum}
-            variant={pageNum === currentPage ? "default" : "ghost"}
-            size="icon"
-            onClick={() => onPageChange(pageNum)}
-            className={`w-9 h-9 ${
-              pageNum === currentPage ? "shadow-soft" : ""
-            }`}
-          >
-            {pageNum}
-          </Button>
-        ))}
-      </div>
+        {pages.map((page, index) => {
+          if (page === "ellipsis-start" || page === "ellipsis-end") {
+            return (
+              <span key={page} className="px-2 text-muted-foreground">
+                ...
+              </span>
+            );
+          }
 
-      <Button
-        variant="outline"
-        size="sm"
-        onClick={() => onPageChange(currentPage + 1)}
-        disabled={currentPage >= totalPages}
-        className="gap-1 hover:bg-accent hover:border-accent transition-colors"
-      >
-        Next
-        <ChevronRight className="h-4 w-4" />
-      </Button>
+          return (
+            <Button
+              key={page}
+              variant={page === currentPage ? "default" : "ghost"}
+              size="icon"
+              onClick={() => onPageChange(page)}
+              className={`w-9 h-9 ${page === currentPage ? "shadow-soft" : ""}`}
+            >
+              {page}
+            </Button>
+          );
+        })}
+      </div>
+      <PaginationArrow
+        paginationDirection="right"
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={onPageChange}
+      />
     </div>
   );
 };

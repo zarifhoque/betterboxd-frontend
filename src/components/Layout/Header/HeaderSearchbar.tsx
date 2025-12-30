@@ -1,23 +1,28 @@
 import { useState } from "react";
 import type { FormEvent, ChangeEvent } from "react";
-import { Search } from "lucide-react";
+import { Loader2, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useNavigate } from "react-router-dom";
-import type { StoryResult } from "@/types/Story";
-import { getTopStories } from "@/api/StoryAPI";
+import { searchStories } from "@/api/StoryAPI";
+import type { StoriesResponse } from "@/types/Story";
+// Import the new component
+import { HeaderSearchbarDropdown } from "./HeaderSearchbarDropdown";
 
 export const HeaderSearchbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [topResults, setTopResults] = useState<StoryResult[]>([]);
+  const [topResults, setTopResults] = useState<StoriesResponse[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+
   const navigate = useNavigate();
-  const [debounceTimer, setDebounceTimer] = useState<ReturnType<
-    typeof setTimeout
-  > | null>(null);
+  const [debounceTimer, setDebounceTimer] = useState<
+    NodeJS.Timeout | number | null
+  >(null);
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!searchQuery.trim()) return;
+    setShowDropdown(false);
     navigate(
       `/search?title=${encodeURIComponent(
         searchQuery.trim()
@@ -25,10 +30,18 @@ export const HeaderSearchbar = () => {
     );
   };
 
+  const handleSelectStory = (storyId: string) => {
+    navigate(`/stories/${storyId}`);
+    setShowDropdown(false);
+  };
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchQuery(value);
-    if (debounceTimer) clearTimeout(debounceTimer);
+
+    if (value.trim().length === 0) setShowDropdown(false);
+    if (debounceTimer) clearTimeout(debounceTimer as number);
+
     const timer = setTimeout(async () => {
       if (!value.trim()) {
         setTopResults([]);
@@ -36,21 +49,31 @@ export const HeaderSearchbar = () => {
       }
       try {
         setIsLoading(true);
-        // const res = await fetch(
-        //   `http://localhost:3000/api/v1/stories?title=${encodeURIComponent(
-        //     value
-        //   )}&page=1&itemsPerPage=5`
-        // );
-        const fetchedStories = await getTopStories(value);
+        const fetchedStories = await searchStories(value);
         setTopResults(fetchedStories);
+        setShowDropdown(fetchedStories.length > 0);
       } catch (err) {
         console.error(err);
         setTopResults([]);
+        setShowDropdown(false);
       } finally {
         setIsLoading(false);
       }
     }, 300);
+
     setDebounceTimer(timer);
+  };
+
+  const handleBlur = () => {
+    setTimeout(() => {
+      setShowDropdown(false);
+    }, 100);
+  };
+
+  const handleFocus = () => {
+    if (topResults.length > 0) {
+      setShowDropdown(true);
+    }
   };
 
   return (
@@ -63,31 +86,23 @@ export const HeaderSearchbar = () => {
             placeholder="Search reviews, movies, genres..."
             value={searchQuery}
             onChange={handleChange}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            autoComplete="off"
             className="pl-10 bg-secondary/50 border-transparent hover:border-border focus:border-primary/50 transition-all"
           />
         </div>
       </form>
 
-      {topResults.length > 0 && (
-        <ul className="absolute w-full bg-background shadow-md rounded-md mt-1 z-50 max-h-64 overflow-y-auto">
-          {topResults.map((story) => (
-            <li
-              key={story.storyId}
-              className="px-4 py-2 hover:bg-primary/10 cursor-pointer"
-              onClick={() => navigate(`/stories/${story.storyId}`)}
-            >
-              <span className="font-medium">{story.title}</span>{" "}
-              <span className="text-muted-foreground text-sm">
-                by {story.username}
-              </span>
-            </li>
-          ))}
-        </ul>
-      )}
+      <HeaderSearchbarDropdown
+        results={topResults}
+        showDropdown={showDropdown}
+        onSelect={handleSelectStory}
+      />
 
       {isLoading && (
         <div className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">
-          Loading...
+          <Loader2 />
         </div>
       )}
     </div>

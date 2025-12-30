@@ -8,6 +8,9 @@ import { AuthContext } from "./AuthContext";
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [token, setToken] = useState<string | null>(() =>
+    localStorage.getItem("token")
+  );
 
   const login = async (email: string, password: string) => {
     const { token, user: userData } = await loginUser({ email, password });
@@ -50,6 +53,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     <AuthContext.Provider
       value={{
         user,
+        token,
         isLoading,
         isAuthenticated: !!user,
         login,
